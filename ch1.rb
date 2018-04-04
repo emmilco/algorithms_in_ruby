@@ -67,3 +67,33 @@ class Counter
     "#{@count} #{@name}"
   end
 end
+
+# linked list stack (page 149)
+
+class Node
+  attr_accessor :value, :next
+
+  def initialize(value, next)
+    @value = value
+    @next = next
+  end
+end
+
+class Stack
+  def initialize
+    @length = 0
+    @first = nil
+  end
+
+  def push(el)
+    @first = Node.new(el, @first)
+    @length += 1
+  end
+
+  def pop
+    old_first = @first
+    @first = old_first.next
+    @length -= 1
+    old_first
+  end
+end
