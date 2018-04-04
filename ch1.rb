@@ -80,6 +80,8 @@ class Node
 end
 
 class Stack
+  attr_reader :length
+
   def initialize
     @length = 0
     @first = nil
@@ -95,5 +97,35 @@ class Stack
     @first = old_first.next
     @length -= 1
     old_first
+  end
+end
+
+# linked list queue (page 151)
+
+class Queue
+  def initialize
+    @first = nil
+    @last = nil
+    @length = 0
+  end
+
+  def isEmpty?
+    @first == nil
+  end
+
+  def enqueue(el)
+    old_last = @last
+    @last = Node.new(el, nil)
+    old_last.next = @last
+    @first = @last if isEmpty?
+    @length += 1
+  end
+
+  def dequeue
+    old_first = @first
+    @first = old_first.next
+    last = nil if isEmpty?
+    @length -= 1
+    oldfirst.value
   end
 end
