@@ -129,3 +129,41 @@ class Queue
     oldfirst.value
   end
 end
+
+# union-find (page 221), using weighted quick union (page 228)
+
+class UnionFind
+  def initialize(arr)
+    @id = Array.new { |i| i }
+    @sz = Hash.new(1)
+    @count = arr.length
+  end
+
+  def count
+    @count
+  end
+
+  def connected(p, q)
+    find(p) == find(q)
+  end
+
+  def union(p, q)
+    i = find(p)
+    j = find(q)
+    return if i == j
+    if sz[i] < sz[j]
+      id[i] = j
+      sz[j] += sz[i]
+    else
+      id[j] = i
+      sz[i] += sz[j]
+    end
+    count -= 1
+  end
+
+  def find(p, q)
+    while p != id[p]
+      p = id[p]
+    end
+    p
+  end
